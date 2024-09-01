@@ -6,6 +6,18 @@ interface UserAttrs {
   password: string;
 }
 
+// An interface that describes the properties that a User Model has 
+// so that we can use the build method to create a new User instance with type checking 
+interface UserModel extends mongoose.Model<UserDoc> {
+  build(attrs: UserAttrs): UserDoc;
+}
+
+// An interface that describes the properties that a User Document has
+interface UserDoc extends mongoose.Document {
+  email: string;
+  password: string;
+}
+
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -16,11 +28,10 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
 });
-
-const User = mongoose.model("User", userSchema);
-
-const buildUser = (attrs: UserAttrs) => {
+userSchema.statics.build = (attrs: UserAttrs) => {
   return new User(attrs);
-};
+}
 
-export { User, buildUser };
+const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
+
+export { User };
