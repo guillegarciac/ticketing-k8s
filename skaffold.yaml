@@ -15,3 +15,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: guillegarciac/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
