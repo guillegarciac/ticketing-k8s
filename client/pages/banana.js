@@ -1,3 +1,3 @@
 export default function Banana() {
-  return <h1>Banana2</h1>;
+  return <h1>Banana3</h1>;
 }
