@@ -13,6 +13,8 @@ spec:
         app: tickets
     spec:
       containers:
+        - name: MONGO_URI
+          value: 'mongodb://tickets-mongo-srv:27017/tickets'
         - name: tickets
           image: guillegarciac/tickets
           env:
