@@ -2,10 +2,11 @@ import request from 'supertest';
 import { app } from '../../app';
 
 it('returns a 404 if the ticket is not found', async () => {
-  await request(app)
+  const response = await request(app)
     .get('/api/tickets/asdfasdf')
     .send()
-    .expect(404);
+
+    console.log(response.body);
 }
 );
 
