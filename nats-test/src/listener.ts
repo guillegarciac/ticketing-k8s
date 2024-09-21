@@ -10,6 +10,12 @@ const stan = nats.connect('ticketing', randomBytes(4).toString('hex'), {
 stan.on('connect', () => {
   console.log('Listener connected to NATS');
 
+  stan.on('close', () => { // This event listener is triggered when the connection is closed
+    console.log('NATS connection closed');
+    process.exit();
+  });
+
+  // This tells the NATS server that we want to create a subscription
   const options = stan.subscriptionOptions()
   .setManualAckMode(true); // This tells the NATS server that we will manually acknowledge the message
   const subscription = stan.subscribe(
@@ -28,3 +34,6 @@ stan.on('connect', () => {
     msg.ack(); // This tells the NATS server that we have successfully processed the message
   });
 });
+
+process.on('SIGINT', () => stan.close()); // This tells the NATS server that we are closing the connection
+process.on('SIGTERM', () => stan.close()); 
