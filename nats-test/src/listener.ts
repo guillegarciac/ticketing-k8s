@@ -35,7 +35,7 @@ stan.on('connect', () => {
   // This ensures that any message on 'ticket:created' is received by only one service instance in the group
   const subscription = stan.subscribe(
     'ticket:created',
-    'orders-service-queue-group', // This orders-service-queue group ensures that only one instance of the service receives the message
+    'orders-service-queue-group', // This orders-service-queue group ensures that only one instance of the service receives the message and prevents setDeliverAllAvailable from sending the message to all instances again
     options
   );
 
@@ -56,3 +56,7 @@ stan.on('connect', () => {
 // Ensures the NATS connection is properly closed before the process exits
 process.on('SIGINT', () => stan.close()); 
 process.on('SIGTERM', () => stan.close()); 
+
+
+// to run this we need to user kubectl port-forward nats-depl-67687c6fbd-l6k8c 4222:4222
+// then run npm run listen
