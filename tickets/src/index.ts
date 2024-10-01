@@ -13,6 +13,15 @@ const start = async () => {
   
   try {
     await natsWrapper.connect("ticketing", "abc", "http://nats-srv:4222");
+    // Event listener for when the connection is closed, logging a message and exiting the process
+    natsWrapper.client.on("close", () => {
+      console.log("NATS connection closed");
+      process.exit();
+    });
+
+    process.on("SIGINT", () => natsWrapper.client.close());
+    process.on("SIGTERM", () => natsWrapper.client.close());
+
     await mongoose.connect(process.env.MONGO_URI, {
     });
     console.log("Connected to MongoDb");
