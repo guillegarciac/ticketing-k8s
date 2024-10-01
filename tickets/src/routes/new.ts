@@ -25,15 +25,22 @@ router.post(
     });
 
     await ticket.save();
-    await new TicketCreatedPublisher(client).publish({
+    /* await new TicketCreatedPublisher(client).publish({
       id: ticket.id,
       title: ticket.title,
       price: ticket.price,
       userId: ticket.userId,
-    });
+    }); */
 
     res.status(201).send(ticket);
   }
 );
 
 export { router as createTicketRouter };
+
+
+/* return new Promise<void>((resolve, reject) => {
+  this._client!.on('connect', () => {
+    console.log('Connected to NATS');
+    resolve();
+  }); */
