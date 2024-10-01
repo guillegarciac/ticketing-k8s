@@ -1,4 +1,3 @@
-import e from "express";
 import { Subjects } from "./subjects";
 
 export interface TicketUpdatedEvent {
