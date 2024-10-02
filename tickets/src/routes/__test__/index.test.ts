@@ -1,9 +1,6 @@
 import request from "supertest";
 import { app } from "../../app";
 
-// Jest will automatically mock the nats-wrapper file
-jest.mock('../../nats-wrapper');
-
 const createTicket = (cookie: string[], title: string, price: number) => {
   return request(app)
     .post("/api/tickets")

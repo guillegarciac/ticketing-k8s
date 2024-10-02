@@ -1,10 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-
 import mongoose from 'mongoose';
-
-// Jest will automatically mock the nats-wrapper file
-jest.mock('../../nats-wrapper');
 
 it('returns a 404 if the provided id does not exist', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
