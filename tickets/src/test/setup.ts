@@ -23,6 +23,7 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  jest.clearAllMocks();
   await mongoose.connection.dropDatabase();
 });
 
