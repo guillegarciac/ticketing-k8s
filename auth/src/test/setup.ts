@@ -4,7 +4,7 @@ import request from 'supertest';
 import { app } from '../app';
 
 declare global {
-  var signin: () => Promise<string[]>;
+  var signin: (id?: string) => Promise<string[]>;
 }
 
 let mongo: any;
