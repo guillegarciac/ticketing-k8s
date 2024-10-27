@@ -46,4 +46,12 @@ build:
       sync:
         manual:
           - src: 'src/**/*.ts'
-            dest: .                              
+            dest: .                  
+    - image: guillegarciac/payments
+      context: payments
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .                                   
