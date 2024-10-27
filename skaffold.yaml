@@ -38,4 +38,12 @@ build:
       sync:
         manual:
           - src: 'src/**/*.ts'
-            dest: .                   
+            dest: .    
+    - image: guillegarciac/expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .                              
