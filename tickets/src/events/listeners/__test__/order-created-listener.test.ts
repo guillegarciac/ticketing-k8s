@@ -4,7 +4,6 @@ import { OrderCreatedEvent, OrderStatus } from '@ggctickets/common';
 import { OrderCreatedListener } from '../order-created-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Ticket } from '../../../models/ticket';
-import { TicketUpdatedPublisher } from '../../publishers/ticket-updated-publisher';
 
 const setup = async () => {
   // Create an instance of the listener
@@ -17,13 +16,6 @@ const setup = async () => {
     userId: 'asdf',
   });
   await ticket.save();
-  /* new TicketUpdatedPublisher(natsWrapper.client).publish({
-    id: ticket.id,
-    price: ticket.price,
-    title: ticket.title,
-    userId: ticket.userId,
-    version: ticket.version,
-  }); */
 
   // Create the fake data event
   const data: OrderCreatedEvent['data'] = {
