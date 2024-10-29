@@ -23,6 +23,13 @@ const paymentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+}, {
+  toJSON: {
+    transform(doc, ret) {
+      ret.id = ret._id;
+      delete ret._id;
+    }
+  }
 });
 
 paymentSchema.statics.build = (attrs: PaymentAttrs) => {
