@@ -4,6 +4,8 @@ import { body } from 'express-validator';
 import { requireAuth, validateRequest, BadRequestError, NotFoundError, NotAuthorizedError, OrderStatus } from '@ggctickets/common';
 import { Order } from '../models/order';
 import { Payment } from '../models/payment';
+import { PaymentCreatedPublisher } from '../events/publishers/payment-created-publisher';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
 
@@ -40,8 +42,13 @@ router.post('/api/payments', requireAuth, [
     stripeId: charge.id
   });
   await payment.save();
+  new PaymentCreatedPublisher(natsWrapper.client).publish({
+    id: payment.id,
+    orderId: payment.orderId,
+    stripeId: payment.stripeId
+  });
 
-  res.status(201).send({ success: true });
+  res.status(201).send({ id: payment.id });
 });
 
 export { router as createChargeRouter };
