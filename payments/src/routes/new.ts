@@ -26,6 +26,7 @@ router.post('/api/payments', requireAuth, [
     throw new BadRequestError('Cannot pay for a cancelled order');
   }
 
+  // TODO Deprecated endpoint, should update with PaymentIntent
   await stripe.charges.create({
     currency: 'usd',
     amount: order.price * 100,

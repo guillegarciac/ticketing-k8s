@@ -1,0 +1,9 @@
+// No longer needed for TESTING purposes as we are using the real stripe API
+// This file is kept for reference only
+
+/* export const stripe = {
+  charges: {
+    create: jest.fn().mockResolvedValue({}),
+  },
+};
+ */
