@@ -1,0 +1,37 @@
+name: deploy-tickets
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'tickets/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build Docker Image
+        working-directory: ./tickets
+        run: docker build -t guillegarciac/tickets .
+
+      - name: Log in to Docker Hub
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      - name: Push Docker Image
+        run: docker push guillegarciac/tickets
+
+      - name: Set up DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}  
+
+      - name: Configure k8s Cluster
+        run: doctl kubernetes cluster kubeconfig save ticketing-k8s
+
+      - name: Deploy to k8s
+        run: kubectl rollout restart deployment tickets-depl
