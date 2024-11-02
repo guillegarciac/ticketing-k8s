@@ -30,8 +30,8 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}  
 
-      - name: Configure Kubernetes Cluster
+      - name: Configure k8s Cluster
         run: doctl kubernetes cluster kubeconfig save ticketing-k8s
 
-      - name: Deploy to Kubernetes
+      - name: Deploy to k8s
         run: kubectl rollout restart deployment auth-depl
