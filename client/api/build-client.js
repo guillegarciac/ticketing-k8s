@@ -5,9 +5,10 @@ export default ({ req }) => {
     // We are on the server
 
     return axios.create({
-      // this needs to be updated to whatever domain bought
+      // this needs to be updated to whatever 
       baseURL:
-        'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local',
+        'https://www.guillegarciac.dev',
+        /* 'http://ingress-nginx-controller.ingress-nginx.svc.cluster.local' */
       headers: req.headers,
     });
   } else {
