@@ -40,6 +40,7 @@ const OrderShow = ({ order, currentUser }) => {
         amount={order.ticket.price * 100}
         email={currentUser.email}        
       ></StripeCheckout>
+      {errors}
     </div>
   );
 };
