@@ -6,6 +6,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./path-to-auth-directory/auth
     steps:
-      - uses: actions/checkout@v2
-      - run: cd auth && npm install & npm run test:ci
+      - uses: actions/checkout@v4
+      - run: npm install
+      - run: npm run test:ci
